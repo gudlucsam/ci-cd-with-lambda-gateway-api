@@ -1,0 +1,20 @@
+{
+    "name": "sls-flask-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Samuel Atule",
+    "license": "ISC",
+    "devDependencies": {
+        "serverless-dynamodb-local": "^0.2.36",
+        "serverless-python-requirements": "^4.2.5",
+        "serverless-wsgi": "^1.6.1"
+    },
+    "dependencies": {
+        "dynamodb": "^1.2.0"
+    }
+}

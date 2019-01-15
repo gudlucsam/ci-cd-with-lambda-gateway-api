@@ -1,0 +1,90 @@
+service: sls-flask-api # NOTE: update this with your service name
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+  - serverless-dynamodb-local
+
+custom:
+  tableName: 'users-table-${self:provider.stage}'
+  wsgi:
+    app: handler.app
+    packRequirements: false
+  dynamodb:
+    start:
+      migrate: true
+  # pythonRequirements:
+  #   dockerizePip: true
+
+
+provider:
+  name: aws
+  runtime: python3.7
+  stage: ${opt:stage, 'staging'}
+  region: us-east-1
+
+  # you can add packaging information here
+  package:
+    exclude:
+      - .venv/**
+      - .git/**
+      - __pycache__/** # for python 3.x
+      - '*.pyc' # if using python 2.x
+
+
+  # you can add statements to the Lambda function's IAM Role here
+  iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:DescribeTable
+      - dynamodb:Query
+      - dynamodb:Scan
+      - dynamodb:GetItem
+      - dynamodb:PutItem
+      - dynamodb:UpdateItem
+      - dynamodb:DeleteItem
+    Resource: 
+      - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
+
+  # you can define service wide environment variables here
+  environment:
+    USERS_TABLE: ${self:custom.tableName}
+
+functions:
+  app:
+    handler: wsgi.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+  getUser:
+    handler: wsgi.handler
+    events:
+      - http: 'GET /users/{proxy+}'
+  createUser:
+    handler: wsgi.handler
+    events:
+      - http: 'POST /user'
+  getAllUsers:
+    handler: wsgi.handler
+    events:
+      - http: 'GET /users'
+  
+
+# you can add CloudFormation resource templates here
+resources:
+  Resources:
+    UsersDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tableName}
