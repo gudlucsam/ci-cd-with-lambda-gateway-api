@@ -9,8 +9,8 @@ custom:
   dynamodb:
     start:
       migrate: true
-  # pythonRequirements:
-  #   dockerizePip: true
+  pythonRequirements:
+    dockerizePip: true
 
 
 provider:
@@ -22,12 +22,10 @@ provider:
   # you can add packaging information here
   package:
     exclude:
-      - .venv/**
       - .git/**
       - __pycache__/** # for python 3.x
       - '*.pyc' # if using python 2.x
       - .travis.yml
-      - '*.env'
       - tests/**
       - README.md
 
