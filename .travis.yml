@@ -8,7 +8,7 @@ install:
   - npm install -g serverless
   - npm install --save serverless-wsgi 
   - npm install --save serverless-python-requirements
-  - sls plugin install 
+  - sls plugins install
 script:
   - python -m pytest -v
 deploy:
