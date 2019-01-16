@@ -5,7 +5,8 @@ python:
   - "3.6"
 install:
   - pip install -r requirements.txt
-  - npm install --save serverless-wsgi serverless-python-requirements
+  - npm install --save serverless-wsgi 
+  - npm install --save serverless-python-requirements
   - npm install -g serverless
   - sls plugin install -n serverless-python-requirements
 script:

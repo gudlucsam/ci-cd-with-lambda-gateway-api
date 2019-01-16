@@ -1,7 +1,6 @@
 service: sls-flask-api # NOTE: update this with your service name
 
 plugins:
-  - serverless-python-requirements
   - serverless-wsgi
   - serverless-dynamodb-local
 
@@ -30,6 +29,10 @@ provider:
       - .git/**
       - __pycache__/** # for python 3.x
       - '*.pyc' # if using python 2.x
+      - .travis.yml
+      - '*.env'
+      - tests/**
+      - README.md
 
 
   # you can add statements to the Lambda function's IAM Role here
