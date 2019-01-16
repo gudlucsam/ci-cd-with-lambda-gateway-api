@@ -3,6 +3,7 @@ service: sls-flask-api # NOTE: update this with your service name
 plugins:
   - serverless-wsgi
   - serverless-dynamodb-local
+  - serverless-python-requirements
 
 custom:
   tableName: 'users-table-${self:provider.stage}'
