@@ -4,8 +4,9 @@ python:
 install:
   - pip install -r requirements.txt
   - npm install -g serverless
+before_script: cd sls-flask-api
 script:
-  - python -m pytest  ./tests/test_class.py
+  - python -m pytest -v
 deploy:
   provider: script
   script: serverless deploy --stage staging
