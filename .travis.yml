@@ -1,6 +1,6 @@
 language: python
-# env:
-#   - BOTO_CONFIG=/dev/null
+env:
+  - BOTO_CONFIG=/dev/null
 python:
   - "3.6"
 install:
@@ -11,7 +11,7 @@ install:
   - sls plugin install -n serverless-wsgi
   - sls plugin install -n serverless-python-requirements 
   - sls plugin install -n serverless-dynamodb-local
-# before_script: cd ci-cd-with-lambda-gateway-api
+before_script: cd ci-cd-with-lambda-gateway-api
 script:
   - python -m pytest -v
 deploy:
