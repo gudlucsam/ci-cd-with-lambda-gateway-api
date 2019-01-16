@@ -1,7 +1,6 @@
 service: sls-flask-api # NOTE: update this with your service name
 
 plugins:
-  - serverless-wsgi
   - serverless-dynamodb-local
 
 custom:
