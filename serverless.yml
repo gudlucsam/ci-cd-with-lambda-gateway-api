@@ -13,8 +13,8 @@ custom:
   dynamodb:
     start:
       migrate: true
-  # pythonRequirements:
-  #   dockerizePip: true
+  pythonRequirements:
+    dockerizePip: true
 
 
 provider:
