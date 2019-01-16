@@ -12,7 +12,6 @@ install:
   - sls plugin install -n serverless-python-requirements 
   - sls plugin install -n serverless-dynamodb-local
   
-
 script:
   - python -m pytest -v
 deploy:
