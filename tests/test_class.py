@@ -13,26 +13,29 @@ class TestDynamo(unittest.TestCase):
     @mock_dynamodb2
     def test_create_user(self):
         
-        table = self.dynamodb.create_table(
-            TableName=self.table_name,
-            KeySchema=[
-                {
-                    'AttributeName': 'userId',
-                    'KeyType': 'HASH'
-                },
-            ],
-            AttributeDefinitions=[
-                {
-                    'AttributeName': 'userId',
-                    'AttributeType': 'S'
-                },
+        try:
+            table = self.dynamodb.create_table(
+                TableName=self.table_name,
+                KeySchema=[
+                    {
+                        'AttributeName': 'userId',
+                        'KeyType': 'HASH'
+                    },
+                ],
+                AttributeDefinitions=[
+                    {
+                        'AttributeName': 'userId',
+                        'AttributeType': 'S'
+                    },
 
-            ],
-            ProvisionedThroughput={
-                'ReadCapacityUnits': 5,
-                'WriteCapacityUnits': 5
-            }
-        )
+                ],
+                ProvisionedThroughput={
+                    'ReadCapacityUnits': 5,
+                    'WriteCapacityUnits': 5
+                }
+            )
+        except self.dynamodb.exceptions.ResourceInUseException:
+            pass
 
         item = {
             'userId': 'qwwrwegregvf123',
@@ -55,27 +58,30 @@ class TestDynamo(unittest.TestCase):
 
     @mock_dynamodb2
     def test_get_users(self):
+        try:
+            table = self.dynamodb.create_table(
+                TableName=self.table_name,
+                KeySchema=[
+                    {
+                        'AttributeName': 'userId',
+                        'KeyType': 'HASH'
+                    },
+                ],
+                AttributeDefinitions=[
+                    {
+                        'AttributeName': 'userId',
+                        'AttributeType': 'S'
+                    },
 
-        table = self.dynamodb.create_table(
-            TableName=self.table_name,
-            KeySchema=[
-                {
-                    'AttributeName': 'userId',
-                    'KeyType': 'HASH'
-                },
-            ],
-            AttributeDefinitions=[
-                {
-                    'AttributeName': 'userId',
-                    'AttributeType': 'S'
-                },
-
-            ],
-            ProvisionedThroughput={
-                'ReadCapacityUnits': 5,
-                'WriteCapacityUnits': 5
-            }
-        )
+                ],
+                ProvisionedThroughput={
+                    'ReadCapacityUnits': 5,
+                    'WriteCapacityUnits': 5
+                }
+            )
+        except self.dynamodb.exceptions.ResourceInUseException:
+            pass
+        
 
         items = [
                     {'userId': 'qwwrwegregvf123','name': 'samuel atule'},
